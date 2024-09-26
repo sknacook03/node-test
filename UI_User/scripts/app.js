@@ -1,256 +1,254 @@
 const fetchUsers = async () => {
   try {
-    const response = await fetch(
-      "https://app-user-fdc01fc89b8f.herokuapp.com/book"
-    );
+    const response = await fetch("https://app-user-fdc01fc89b8f.herokuapp.com/book");
     const { data } = await response.json();
     return data;
   } catch (error) {
     console.error(`[ERROR FETCHING PRODUCT]: ${error.message}`);
   }
 };
-fetchUsers();
-// const formatDateToDBStyle = (isoString) => {
-//   const date = new Date(isoString);
 
-//   const year = date.getFullYear();
-//   const month = (date.getMonth() + 1).toString().padStart(2, "0");
-//   const day = date.getDate().toString().padStart(2, "0");
+const formatDateToDBStyle = (isoString) => {
+  const date = new Date(isoString);
 
-//   queueMicrotask;
-//   return `${year}-${month}-${day}`;
-// };
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
 
-// const isValidDate = (dateString) => {
-//   const regex = /^\d{4}-\d{2}-\d{2}$/;
-//   return regex.test(dateString);
-// };
+  queueMicrotask;
+  return `${year}-${month}-${day}`;
+};
 
-// const add_user = document.getElementsByClassName("add")[0];
-// add_user.addEventListener("click", async () => {
-//   const user_form = document.getElementById("user-form");
-//   user_form.style.display =
-//     user_form.style.display === "block" ? "none" : "block";
-// });
+const isValidDate = (dateString) => {
+  const regex = /^\d{4}-\d{2}-\d{2}$/;
+  return regex.test(dateString);
+};
 
-// const main = async () => {
-//   const users = await fetchUsers();
-//   console.log(users);
+const add_user = document.getElementsByClassName("add")[0];
+add_user.addEventListener("click", async () => {
+  const user_form = document.getElementById("user-form");
+  user_form.style.display =
+    user_form.style.display === "block" ? "none" : "block";
+});
 
-//   const tableHeader = document.getElementById("table-head");
-//   const tableBody = document.getElementById("table-body");
+const main = async () => {
+  const users = await fetchUsers();
+  console.log(users);
 
-//   // เคลียร์แถวใน tbody
-//   tableBody.innerHTML = "";
+  const tableHeader = document.getElementById("table-head");
+  const tableBody = document.getElementById("table-body");
 
-//   if (users.length === 0) {
-//     tableHeader.classList.add("hidden");
-//   } else {
-//     tableHeader.classList.remove("hidden");
-//     addProductToTable(users);
-//   }
-// };
+  // เคลียร์แถวใน tbody
+  tableBody.innerHTML = "";
 
-// const addProductToTable = (users) => {
-//   const tableBody = document.getElementById("table-body");
-//   tableBody.innerHTML = ""; // เคลียร์ตารางก่อนเพิ่มข้อมูลใหม่
+  if (users.length === 0) {
+    tableHeader.classList.add("hidden");
+  } else {
+    tableHeader.classList.remove("hidden");
+    addProductToTable(users);
+  }
+};
 
-//   users.forEach((user) => {
-//     const row = document.createElement("tr");
-//     const formattedDate = formatDateToDBStyle(user.u_birth_date);
+const addProductToTable = (users) => {
+  const tableBody = document.getElementById("table-body");
+  tableBody.innerHTML = ""; // เคลียร์ตารางก่อนเพิ่มข้อมูลใหม่
 
-//     row.innerHTML = `
-//       <td>${user.id}</td>
-//       <td>${user.u_name}</td>
-//       <td>${formattedDate}</td>
-//     `;
+  users.forEach((user) => {
+    const row = document.createElement("tr");
+    const formattedDate = formatDateToDBStyle(user.u_birth_date);
 
-//     // ปุ่ม Edit
-//     const editCell = document.createElement("td");
-//     const edit_bt = document.createElement("button");
-//     edit_bt.innerText = "Edit";
-//     edit_bt.classList.add("edit-btn");
-//     edit_bt.addEventListener("click", () => handleEdit(user));
+    row.innerHTML = `
+      <td>${user.id}</td>
+      <td>${user.u_name}</td>
+      <td>${formattedDate}</td>
+    `;
 
-//     editCell.appendChild(edit_bt);
-//     row.appendChild(editCell);
+    // ปุ่ม Edit
+    const editCell = document.createElement("td");
+    const edit_bt = document.createElement("button");
+    edit_bt.innerText = "Edit";
+    edit_bt.classList.add("edit-btn");
+    edit_bt.addEventListener("click", () => handleEdit(user));
 
-//     // ปุ่ม Delete
-//     const deleteCell = document.createElement("td");
-//     const delete_bt = document.createElement("button");
-//     delete_bt.innerText = "Delete";
-//     delete_bt.classList.add("delete-btn");
-//     delete_bt.addEventListener("click", () => handleDelete(user.id));
+    editCell.appendChild(edit_bt);
+    row.appendChild(editCell);
 
-//     deleteCell.appendChild(delete_bt);
-//     row.appendChild(deleteCell);
+    // ปุ่ม Delete
+    const deleteCell = document.createElement("td");
+    const delete_bt = document.createElement("button");
+    delete_bt.innerText = "Delete";
+    delete_bt.classList.add("delete-btn");
+    delete_bt.addEventListener("click", () => handleDelete(user.id));
 
-//     tableBody.appendChild(row);
-//   });
-// };
+    deleteCell.appendChild(delete_bt);
+    row.appendChild(deleteCell);
 
-// // ฟังก์ชันสำหรับแก้ไขผู้ใช้
-// const handleEdit = (user) => {
-//   const edit_form = document.getElementById("edit-user-form");
-//   const showId = document.getElementById("showId");
+    tableBody.appendChild(row);
+  });
+};
 
-//   showId.innerText = `Edit User ID : ${user.id}`;
-//   document.getElementById("edit-user-form").dataset.userId = user.id;
-//   document.getElementById("name-edit").value = user.u_name;
-//   document.getElementById("birthday-edit").value = formatDateToDBStyle(
-//     user.u_birth_date
-//   );
-//   edit_form.style.display = "block";
-// };
+// ฟังก์ชันสำหรับแก้ไขผู้ใช้
+const handleEdit = (user) => {
+  const edit_form = document.getElementById("edit-user-form");
+  const showId = document.getElementById("showId");
 
-// // ฟังก์ชันสำหรับลบผู้ใช้
-// const handleDelete = async (userId) => {
-//   console.log(`Deleting user: ${userId}`);
-//   try {
-//     const response = await fetch(`http://localhost:3000/user/${userId}`, {
-//       method: "DELETE",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
+  showId.innerText = `Edit User ID : ${user.id}`;
+  document.getElementById("edit-user-form").dataset.userId = user.id;
+  document.getElementById("name-edit").value = user.u_name;
+  document.getElementById("birthday-edit").value = formatDateToDBStyle(
+    user.u_birth_date
+  );
+  edit_form.style.display = "block";
+};
 
-//     if (response.ok) {
-//       console.log("User deleted successfully");
-//       main();
-//     } else {
-//       console.error("เกิดข้อผิดพลาดในการลบข้อมูล");
-//     }
-//   } catch (error) {
-//     console.error(`[ข้อผิดพลาดในการลบข้อมูล User]: ${error.message}`);
-//   }
-// };
-// const submitForm = async (event) => {
-//   event.preventDefault(); // ป้องกันการ reload หน้า
-//   const u_name = document.getElementById("name").value;
-//   const u_birth_date = document.getElementById("birthday").value || "NaN";
+// ฟังก์ชันสำหรับลบผู้ใช้
+const handleDelete = async (userId) => {
+  console.log(`Deleting user: ${userId}`);
+  try {
+    const response = await fetch(`http://localhost:3000/user/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-//   try {
-//     const response = await fetch("http://localhost:3000/user", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ u_name, u_birth_date }),
-//     });
-//     if (!isValidDate(u_birth_date)) {
-//       alert("กรุณาใส่วันที่ในรูปแบบ yyyy-mm-dd");
-//       return;
-//     }
-//     if (response.ok) {
-//       console.log("User added successfully");
-//       main();
-//       const user_form = document.getElementById("user-form");
-//       user_form.style.display = "none";
-//       document.getElementById("name").value = "";
-//       document.getElementById("birthday").value = "";
-//     } else {
-//       console.error("เกิดข้อผิดพลาดในการเพิ่มข้อมูล:");
-//     }
-//   } catch (error) {
-//     console.error(`[ข้อผิดพลาดในการเพิ่มข้อมูล User]: ${error.message}`);
-//   }
-// };
+    if (response.ok) {
+      console.log("User deleted successfully");
+      main();
+    } else {
+      console.error("เกิดข้อผิดพลาดในการลบข้อมูล");
+    }
+  } catch (error) {
+    console.error(`[ข้อผิดพลาดในการลบข้อมูล User]: ${error.message}`);
+  }
+};
+const submitForm = async (event) => {
+  event.preventDefault(); // ป้องกันการ reload หน้า
+  const u_name = document.getElementById("name").value;
+  const u_birth_date = document.getElementById("birthday").value || "NaN";
 
-// const editSubmitForm = async (event) => {
-//   event.preventDefault(); // ป้องกันการ reload หน้า
-//   const u_name = document.getElementById("name-edit").value;
-//   const u_birth_date = document.getElementById("birthday-edit").value || "NaN";
-//   const userId = document.getElementById("edit-user-form").dataset.userId;
+  try {
+    const response = await fetch("http://localhost:3000/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ u_name, u_birth_date }),
+    });
+    if (!isValidDate(u_birth_date)) {
+      alert("กรุณาใส่วันที่ในรูปแบบ yyyy-mm-dd");
+      return;
+    }
+    if (response.ok) {
+      console.log("User added successfully");
+      main();
+      const user_form = document.getElementById("user-form");
+      user_form.style.display = "none";
+      document.getElementById("name").value = "";
+      document.getElementById("birthday").value = "";
+    } else {
+      console.error("เกิดข้อผิดพลาดในการเพิ่มข้อมูล:");
+    }
+  } catch (error) {
+    console.error(`[ข้อผิดพลาดในการเพิ่มข้อมูล User]: ${error.message}`);
+  }
+};
 
-//   try {
-//     const response = await fetch(`http://localhost:3000/user/${userId}`, {
-//       method: "PATCH",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ u_name, u_birth_date }),
-//     });
+const editSubmitForm = async (event) => {
+  event.preventDefault(); // ป้องกันการ reload หน้า
+  const u_name = document.getElementById("name-edit").value;
+  const u_birth_date = document.getElementById("birthday-edit").value || "NaN";
+  const userId = document.getElementById("edit-user-form").dataset.userId;
 
-//     if (!isValidDate(u_birth_date)) {
-//       alert("กรุณาใส่วันที่ในรูปแบบ yyyy-mm-dd");
-//       return;
-//     }
+  try {
+    const response = await fetch(`http://localhost:3000/user/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ u_name, u_birth_date }),
+    });
 
-//     if (response.ok) {
-//       console.log("User updated successfully");
-//       main();
-//       const edit_form = document.getElementById("edit-user-form");
-//       edit_form.style.display = "none";
-//       const close_back = document.querySelector(".back-btn");
-//       if (close_back) {
-//         close_back.remove();
-//       }
-//     } else {
-//       console.error("เกิดข้อผิดพลาดในการแก้ไขข้อมูล:");
-//     }
-//   } catch (error) {
-//     console.error(`[ข้อผิดพลาดในการแก้ไขข้อมูล User]: ${error.message}`);
-//   }
-// };
+    if (!isValidDate(u_birth_date)) {
+      alert("กรุณาใส่วันที่ในรูปแบบ yyyy-mm-dd");
+      return;
+    }
 
-// const searchSubmitForm = async (event) => {
-//   event.preventDefault(); // ป้องกันการ reload หน้า
-//   const searchValue = document.getElementById("search").value;
-//   try {
-//     const isId = !isNaN(searchValue);
+    if (response.ok) {
+      console.log("User updated successfully");
+      main();
+      const edit_form = document.getElementById("edit-user-form");
+      edit_form.style.display = "none";
+      const close_back = document.querySelector(".back-btn");
+      if (close_back) {
+        close_back.remove();
+      }
+    } else {
+      console.error("เกิดข้อผิดพลาดในการแก้ไขข้อมูล:");
+    }
+  } catch (error) {
+    console.error(`[ข้อผิดพลาดในการแก้ไขข้อมูล User]: ${error.message}`);
+  }
+};
 
-//     let response;
-//     if (isId) {
-//       response = await fetch(`http://localhost:3000/user/${searchValue}`, {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       });
-//     } else {
-//       response = await fetch(`http://localhost:3000/user/name/${searchValue}`, {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       });
-//     }
-//     if (response.ok) {
-//       const getUser = await response.json();
-//       const users = getUser.data;
-//       addProductToTable(users);
+const searchSubmitForm = async (event) => {
+  event.preventDefault(); // ป้องกันการ reload หน้า
+  const searchValue = document.getElementById("search").value;
+  try {
+    const isId = !isNaN(searchValue);
 
-//       const conTable = document.getElementsByClassName("con-table")[0];
+    let response;
+    if (isId) {
+      response = await fetch(`http://localhost:3000/user/${searchValue}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } else {
+      response = await fetch(`http://localhost:3000/user/name/${searchValue}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+    if (response.ok) {
+      const getUser = await response.json();
+      const users = getUser.data;
+      addProductToTable(users);
 
-//       const close_back = document.querySelector(".back-btn");
-//       if (close_back) {
-//         close_back.remove();
-//       }
+      const conTable = document.getElementsByClassName("con-table")[0];
 
-//       const back_bt = document.createElement("button");
-//       back_bt.innerText = "Back";
-//       back_bt.classList.add("back-btn");
-//       back_bt.addEventListener("click", () => {
-//         main();
-//         back_bt.remove();
-//       });
+      const close_back = document.querySelector(".back-btn");
+      if (close_back) {
+        close_back.remove();
+      }
 
-//       conTable.appendChild(back_bt);
-//     } else {
-//       console.error("เกิดข้อผิดพลาดในการค้นหาข้อมูล:");
-//     }
-//   } catch (error) {
-//     console.error(`[ข้อผิดพลาดในการค้นหาข้อมูล User]: ${error.message}`);
-//   }
-// };
+      const back_bt = document.createElement("button");
+      back_bt.innerText = "Back";
+      back_bt.classList.add("back-btn");
+      back_bt.addEventListener("click", () => {
+        main();
+        back_bt.remove();
+      });
 
-// // เพิ่ม Event Listener สำหรับการส่งฟอร์ม
-// document.getElementById("user-form").addEventListener("submit", submitForm);
-// document
-//   .getElementById("edit-user-form")
-//   .addEventListener("submit", editSubmitForm);
-// document
-//   .getElementById("search-form")
-//   .addEventListener("submit", searchSubmitForm);
+      conTable.appendChild(back_bt);
+    } else {
+      console.error("เกิดข้อผิดพลาดในการค้นหาข้อมูล:");
+    }
+  } catch (error) {
+    console.error(`[ข้อผิดพลาดในการค้นหาข้อมูล User]: ${error.message}`);
+  }
+};
 
-// main();
+// เพิ่ม Event Listener สำหรับการส่งฟอร์ม
+document.getElementById("user-form").addEventListener("submit", submitForm);
+document
+  .getElementById("edit-user-form")
+  .addEventListener("submit", editSubmitForm);
+document
+  .getElementById("search-form")
+  .addEventListener("submit", searchSubmitForm);
+
+main();
