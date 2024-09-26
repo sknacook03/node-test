@@ -15,7 +15,8 @@ const formatDateToDBStyle = (isoString) => {
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
 
-    queueMicrotask;iureturn `${year}-${month}-${day}`;
+  queueMicrotask;
+  return `${year}-${month}-${day}`;
 };
 
 const isValidDate = (dateString) => {
@@ -97,7 +98,7 @@ const handleEdit = (user) => {
   document.getElementById("birthday-edit").value = formatDateToDBStyle(
     user.u_birth_date
   );
-  edit_form.style.display = "block"; 
+  edit_form.style.display = "block";
 };
 
 // ฟังก์ชันสำหรับลบผู้ใช้
@@ -170,7 +171,7 @@ const editSubmitForm = async (event) => {
 
     if (!isValidDate(u_birth_date)) {
       alert("กรุณาใส่วันที่ในรูปแบบ yyyy-mm-dd");
-      return; 
+      return;
     }
 
     if (response.ok) {
