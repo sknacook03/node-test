@@ -1,6 +1,6 @@
 const fetchUsers = async () => {
   try {
-    const response = await fetch("http://localhost:3000/user");
+    const response = await fetch("https://app-user-fdc01fc89b8f.herokuapp.com/user");
     const { data } = await response.json();
     return data;
   } catch (error) {
