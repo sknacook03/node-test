@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style.css" />
+    <title>LogUser</title>
+  </head>
+  <body>
+    <div class="contrainer">
+      <div class="table">
+        <div class="head-table">
+          <h1>Users</h1>
+          <button type="submit" class="add">Add User</button>
+        </div>
+        <div class="con-table">
+          <table class="tableData" id="user-table">
+            <thead class="table-head" id="table-head">
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Birth-Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody class="table-body" id="table-body"></tbody>
+          </table>
+        </div>
+        <form id="search-form">
+          <div class="form-group">
+            <input
+              type="search"
+              name="search"
+              id="search"
+              placeholder="Search ID or Name ..."
+              required
+            />
+          </div>
+          <button type="submit" class="btn-submit-search">GO</button>
+        </form>
+
+        <form id="user-form">
+          <h2>Add User</h2>
+          <div class="userform">
+            <div class="form-group">
+              <label for="name">Name :</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="birthday">Birthday :</label>
+              <input
+                type="text"
+                name="birthday"
+                id="birthday"
+                placeholder="yyyy-mm-dd"
+                required
+              />
+            </div>
+            <button type="submit" class="btn-submit-add">Add</button>
+          </div>
+        </form>
+
+        <form id="edit-user-form">
+          <h2 id="showId">Edit User</h2>
+          <div class="userform">
+            <div class="form-group">
+              <label for="name-edit">Name :</label>
+              <input
+                type="text"
+                name="name-edit"
+                id="name-edit"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="birthday-edit">Birthday :</label>
+              <input
+                type="text"
+                name="birthday-edit"
+                id="birthday-edit"
+                placeholder="yyyy-mm-dd"
+                required
+              />
+            </div>
+            <button type="submit" class="btn-submit-edit">Edit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>
