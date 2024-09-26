@@ -1,13 +1,15 @@
 const fetchUsers = async () => {
   try {
-    const response = await fetch("https://app-user-fdc01fc89b8f.herokuapp.com/book");
+    const response = await fetch(
+      "https://app-user-fdc01fc89b8f.herokuapp.com/book"
+    );
     const { data } = await response.json();
     return data;
   } catch (error) {
     console.error(`[ERROR FETCHING PRODUCT]: ${error.message}`);
   }
 };
-
+fetchUsers();
 // const formatDateToDBStyle = (isoString) => {
 //   const date = new Date(isoString);
 
