@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(IndexRouter);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const frontendPath = join(__dirname, "frontend");
+const frontendPath = join(__dirname, "UI_User");
 app.use(express.static(frontendPath));
 app.get("/", (req, res) => {
   res.sendFile(join(frontendPath, "index.html"));
